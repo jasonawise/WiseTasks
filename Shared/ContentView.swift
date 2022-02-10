@@ -9,27 +9,32 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var taskName = ""
-     var body: some View {
+    @State private var tasks = ["item 1", "item 2"]
+    var body: some View {
         VStack(alignment: .leading) {
-            Text("Tasks")
+            Text("Wise Tasks")
                 .font(.title).padding()
            
             HStack {
                 TextField("Add a task...", text: $taskName)
                     .padding()
                 Button("Add") {
-                    return
+                    return 
                 }
                 .padding(.trailing, 20)
                 .buttonStyle(.bordered)
             }
             List {
-                Text("item")
-                Text("item 1")
-                Text("item 2")
+                ForEach(tasks, id: \.self) {
+                    Text("\($0)")
+                }
             }
         }
     }
+//    func addTask(task: String) -> Array<String> {
+//        // push task to the tasks array
+//        return tasks.append(task)
+//    }
 }
 
 struct ContentView_Previews: PreviewProvider {
