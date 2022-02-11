@@ -19,22 +19,27 @@ struct ContentView: View {
                 TextField("Add a task...", text: $taskName)
                     .padding()
                 Button("Add") {
-                    return 
+                    tasks.append(taskName)
+                    // this is probably not the best way to do this but I am just happy this works at the moment
+                    return taskName = ""
                 }
                 .padding(.trailing, 20)
                 .buttonStyle(.bordered)
             }
             List {
                 ForEach(tasks, id: \.self) {
-                    Text("\($0)")
+                    Text("\($0)").swipeActions {
+                        Button(role: .destructive) {
+                            print("task deleted")
+                        } label: {
+                                Label("Delete", systemImage: "trash")
+                        }
+                        .tint(.red)
+                }
                 }
             }
         }
     }
-//    func addTask(task: String) -> Array<String> {
-//        // push task to the tasks array
-//        return tasks.append(task)
-//    }
 }
 
 struct ContentView_Previews: PreviewProvider {
